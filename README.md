@@ -20,6 +20,6 @@ To use this project:
    1. The value in parenthesis (f2 60) should match the bluetooth address printed on the display of the device to be provisioned.
 9. Enter "y" in the terminal or press push button PB1 to confirm.
    1. Look for a `configuration complete` message to confirm provisioning was successful.
-   2. Power cycle the provisioner to provision the next device in the network.
+   2. Power cycle or reset the provisioner to provision the next device in the network.
 
 
