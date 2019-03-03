@@ -17,7 +17,7 @@ To use this project:
     Unprovisioned beacon, UUID: 53696c6162734465762d60f2b5570b00 (f2 60)type: PB-ADV
     -> confirm? (use buttons or keys 'y' / 'n')`
    ```
-   1. The value in parenthesis (f2 60) should match the bluetooth address printed on the display.
+   1. The value in parenthesis (f2 60) should match the bluetooth address printed on the display of the device to be provisioned.
 9. Enter "y" in the terminal or press push button PB1 to confirm.
    1. Look for a `configuration complete` message to confirm provisioning was successful.
 
