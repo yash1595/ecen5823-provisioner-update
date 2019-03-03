@@ -161,12 +161,15 @@
 							<tool id="com.silabs.ide.si32.gcc.cdt.managedbuild.tool.gnu.archiver.base.938639104" name="GNU ARM Archiver" superClass="com.silabs.ide.si32.gcc.cdt.managedbuild.tool.gnu.archiver.base"/>
 						</toolChain>
 					</folderInfo>
+					<sourceEntries>
+						<entry excluding=".git/objects/info|.git/objects/pack|.git/refs/tags" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+					</sourceEntries>
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 		</cconfiguration>
 	</storageModule>
-	<storageModule generalProj.esf.protocolIds="com.silabs.sdk.stack.super:2.5.1._620725456.com.silabs.stack.ble:2.11.0.0_-229499850" generalProj.esf.protocolNames="btmesh" moduleId="com.silabs.ss.framework.ide.project.core.cpp" project.generation="3089" projectCommon.boardIds="brd4104a:0.0.0.A00" projectCommon.partId="mcu.arm.efr32.bg13.efr32bg13p632f512gm48" projectCommon.sdkId="com.silabs.sdk.stack.super:2.5.1._620725456"/>
+	<storageModule generalProj.esf.protocolIds="com.silabs.sdk.stack.super:2.5.1._620725456.com.silabs.stack.ble:2.11.0.0_-229499850" generalProj.esf.protocolNames="btmesh" moduleId="com.silabs.ss.framework.ide.project.core.cpp" project.generation="110" projectCommon.boardIds="brd4104a:0.0.0.A00" projectCommon.partId="mcu.arm.efr32.bg13.efr32bg13p632f512gm48" projectCommon.sdkId="com.silabs.sdk.stack.super:2.5.1._620725456"/>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="soc-btmesh-light.com.silabs.ss.framework.ide.project.core.cdt.cdtMbsProjectType.130771919" name="SLS CDT Project" projectType="com.silabs.ss.framework.ide.project.core.cdt.cdtMbsProjectType"/>
 	</storageModule>
