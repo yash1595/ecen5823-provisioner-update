@@ -357,6 +357,8 @@ static void  button_poll()
 			state = provisioning;
 		} else {
 			printf("Failed call to provision node. %x\r\n", prov_resp_adv->result);
+			printf("You may need to factory reset the provisioner\r\n");
+			LCD_write("Fail Try Factory Rst",LCD_ROW_LPN);
 		}
 #else
 		// provisioning using GATT bearer. First we must open a connection to the remote device
@@ -371,9 +373,15 @@ static void  button_poll()
 		state = connecting;
 
 #endif
+		LCD_write("Provisioning", LCD_ROW_CONNECTION);
+		LCD_write(" ", LCD_ROW_FRIEND);
+		LCD_write(" ",LCD_ROW_LPN);
 	}
 	else if (GPIO_PinInGet(BSP_BUTTON0_PORT, BSP_BUTTON0_PIN) == 0 || key == 'n') {
 		ask_user_input = false;
+		LCD_write("Cancel Provision", LCD_ROW_CONNECTION);
+		LCD_write(" ", LCD_ROW_FRIEND);
+		LCD_write(" ",LCD_ROW_LPN);
 	}
 
 }
@@ -1038,6 +1046,7 @@ static void handle_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
     			  }
     			  else
     			  {
+    				  LCD_write("Provision Complete", LCD_ROW_CONNECTION);
     				  printf("***\r\nconfiguration complete\r\n***\r\n");
 #ifdef PROVISION_OVER_GATT
     				  // close connection if provisioning was done over PB-GATT:
@@ -1211,6 +1220,9 @@ static void handle_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
 #endif
 
     	if ((state == scanning) && (ask_user_input == false) && (evt->data.evt_mesh_prov_unprov_beacon.bearer == bearer_type)) {
+    		char lcd_display_string[20];
+    		snprintf(lcd_display_string,sizeof(lcd_display_string),
+    				"Provision %02x%02x",beacon_evt->uuid.data[11], beacon_evt->uuid.data[10]);
 			printf("Unprovisioned beacon, UUID: ");
 
 			for(i=0;i<beacon_evt->uuid.len;i++)
@@ -1230,6 +1242,8 @@ static void handle_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
 #endif
 			printf("-> confirm? (use buttons or keys 'y' / 'n')\r\n");
 			// suspend reporting of unprov beacons until user has rejected or accepted this one using buttons PB0 / PB1
+			LCD_write(lcd_display_string, LCD_ROW_CONNECTION);
+			LCD_write("PB0=N PB1=Y", LCD_ROW_FRIEND);
 			ask_user_input = true;
     	}
     	break;
