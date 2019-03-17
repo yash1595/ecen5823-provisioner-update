@@ -94,6 +94,7 @@
 uint8_t netkey_id = 0xff;
 uint8_t appkey_id = 0xff;
 uint8_t ask_user_input = false;
+uint8_t provision_failed = false;
 uint16 provisionee_address = 0xFFFF;
 
 uint8_t config_retrycount = 0;
@@ -359,6 +360,7 @@ static void  button_poll()
 			printf("Failed call to provision node. %x\r\n", prov_resp_adv->result);
 			printf("You may need to factory reset the provisioner\r\n");
 			LCD_write("Fail Try Factory Rst",LCD_ROW_LPN);
+			provision_failed = true;
 		}
 #else
 		// provisioning using GATT bearer. First we must open a connection to the remote device
@@ -373,9 +375,11 @@ static void  button_poll()
 		state = connecting;
 
 #endif
-		LCD_write("Provisioning", LCD_ROW_CONNECTION);
-		LCD_write(" ", LCD_ROW_FRIEND);
-		LCD_write(" ",LCD_ROW_LPN);
+		if( provision_failed == false ) {
+			LCD_write("Provisioning", LCD_ROW_CONNECTION);
+			LCD_write(" ", LCD_ROW_FRIEND);
+			LCD_write(" ",LCD_ROW_LPN);
+		}
 	}
 	else if (GPIO_PinInGet(BSP_BUTTON0_PORT, BSP_BUTTON0_PIN) == 0 || key == 'n') {
 		ask_user_input = false;
@@ -1219,7 +1223,8 @@ static void handle_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
 #define bearer_type 0
 #endif
 
-    	if ((state == scanning) && (ask_user_input == false) && (evt->data.evt_mesh_prov_unprov_beacon.bearer == bearer_type)) {
+    	if ((state == scanning) && (ask_user_input == false) &&
+    			(evt->data.evt_mesh_prov_unprov_beacon.bearer == bearer_type) && !provision_failed ) {
     		char lcd_display_string[20];
     		snprintf(lcd_display_string,sizeof(lcd_display_string),
     				"Provision %02x%02x",beacon_evt->uuid.data[11], beacon_evt->uuid.data[10]);
