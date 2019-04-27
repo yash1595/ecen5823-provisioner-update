@@ -1,3 +1,8 @@
+
+#Changes Made to the Code:  
+Changes have been made in the main.c file. These changes include adding Level model server and client  
+to the code.  
+
 The code in this repository is based on the Embedded Provisioner described in [this forum post](https://www.silabs.com/community/wireless/bluetooth/knowledge-base.entry.html/2018/05/31/bt_mesh_embeddedpro-qoHB) on the Silicon Labs forum
 
 To use this project:

@@ -64,6 +64,10 @@
 #include "gatt_db.h"
 #include <gecko_configuration.h>
 #include "mesh_generic_model_capi_types.h"
+/** Generic level server */
+#define MESH_GENERIC_LEVEL_SERVER_MODEL_ID        0x1002
+/** Generic level client */
+#define MESH_GENERIC_LEVEL_CLIENT_MODEL_ID        0x1003
 #include "mesh_lighting_model_capi_types.h"
 #include "mesh_lib.h"
 #include <mesh_sizes.h>
@@ -555,6 +559,12 @@ tsConfig _sConfig;
 #define LIGHT_MODEL_ID            0x1000 // Generic On/Off Server
 #define SWITCH_MODEL_ID           0x1001 // Generic On/Off Client
 
+#define SERVER_LEVEL			  0x1002
+#define CLIENT_LEVEL			  0x1003
+
+#define SERVER_STATUS_GRP_ADDR		0xC005
+#define SERVER_CTRL_GRP_ADDR		0xC004
+
 /*
  * Lightness models used in the dimming light example of 1.2.0 SDK
  * */
@@ -641,6 +651,18 @@ static void config_check()
 			config_pub_add(DIM_LIGHT_MODEL_ID, 0xFFFF, LIGHT_STATUS_GRP_ADDR);
 			config_sub_add(DIM_LIGHT_MODEL_ID, 0xFFFF, LIGHT_CTRL_GRP_ADDR);
 			config_bind_add(DIM_LIGHT_MODEL_ID, 0xFFFF, 0, 0);
+		}
+		else if(_sDCD_Prim.SIG_models[i] == SERVER_LEVEL)
+		{
+			config_pub_add(SERVER_LEVEL, 0xFFFF, LIGHT_STATUS_GRP_ADDR);
+			config_sub_add(SERVER_LEVEL, 0xFFFF, LIGHT_CTRL_GRP_ADDR);
+			config_bind_add(SERVER_LEVEL,0xFFFF, 0, 0);
+		}
+		else if(_sDCD_Prim.SIG_models[i] == CLIENT_LEVEL)
+		{
+			config_pub_add(CLIENT_LEVEL, 0xFFFF, LIGHT_CTRL_GRP_ADDR);
+			config_sub_add(CLIENT_LEVEL, 0xFFFF, LIGHT_STATUS_GRP_ADDR);
+			config_bind_add(CLIENT_LEVEL,0xFFFF, 0, 0);
 		}
 
 	}
